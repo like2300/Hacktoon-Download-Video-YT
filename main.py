@@ -4,6 +4,8 @@ import subprocess
 from threading import Thread
 import nest_asyncio
 
+#https://github.com/like2300/Hacktoon-Download-Video-YT/actions/runs/12508646425/artifacts/2364328682
+
 # Fonction pour télécharger la vidéo ou l'audio
 def telecharger_media(url, dossier, progress_bar, page, type_media="video", qualite="best"):
     """Télécharge une vidéo ou un audio avec yt-dlp et met à jour la barre de progression."""
