@@ -1,0 +1,78 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flet yt-dlp
+
+      - name: Build Windows EXE
+        run: |
+          pip install pyinstaller
+          pyinstaller --onefile --name "MonApp" votre_script.py
+          mv dist/MonApp.exe .
+
+      - name: Build macOS DMG
+        run: |
+          pip install pyinstaller
+          pyinstaller --onefile --name "MonApp" votre_script.py
+          mv dist/MonApp .
+
+      - name: Build Linux DEB
+        run: |
+          pip install fpm
+          fpm -s python -t deb votre_script.py
+
+      - name: Build Android APK
+        run: |
+          pip install flet
+          # Commande pour créer un APK. Assurez-vous que les outils Android sont configurés.
+          flet build android --name MonApp --output MonApp.apk
+
+      - name: Build iOS IPA
+        run: |
+          # Vous aurez besoin d'un environnement macOS pour créer un IPA.
+          echo "iOS builds require macOS runners and configuration."
+
+      - name: Upload Windows EXE
+        uses: actions/upload-artifact@v2
+        with:
+          name: MonApp-Windows
+          path: MonApp.exe
+
+      - name: Upload macOS DMG
+        uses: actions/upload-artifact@v2
+        with:
+          name: MonApp-macOS
+          path: MonApp.dmg
+
+      - name: Upload Linux DEB
+        uses: actions/upload-artifact@v2
+        with:
+          name: MonApp-Linux
+          path: *.deb
+
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: MonApp-Android
+          path: MonApp.apk
