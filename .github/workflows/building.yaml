@@ -28,25 +28,25 @@ jobs:
       - name: Build Windows EXE
         run: |
           pip install pyinstaller
-          pyinstaller --onefile --name "MonApp" votre_script.py
-          mv dist/MonApp.exe .
+          pyinstaller --onefile --name "Hacktoon Download Video YT" main.py
+          mv dist/"Hacktoon Download Video YT".exe .
 
       - name: Build macOS DMG
         run: |
           pip install pyinstaller
-          pyinstaller --onefile --name "MonApp" votre_script.py
-          mv dist/MonApp .
+          pyinstaller --onefile --name "Hacktoon Download Video YT" main.py
+          mv dist/"Hacktoon Download Video YT" .
 
       - name: Build Linux DEB
         run: |
           pip install fpm
-          fpm -s python -t deb votre_script.py
+          fpm -s python -t deb main.py
 
       - name: Build Android APK
         run: |
           pip install flet
           # Commande pour créer un APK. Assurez-vous que les outils Android sont configurés.
-          flet build android --name MonApp --output MonApp.apk
+          flet build android --name "Hacktoon Download Video YT" --output Hacktoon_Download_Video_YT.apk
 
       - name: Build iOS IPA
         run: |
@@ -56,23 +56,23 @@ jobs:
       - name: Upload Windows EXE
         uses: actions/upload-artifact@v2
         with:
-          name: MonApp-Windows
-          path: MonApp.exe
+          name: Hacktoon-Download-Video-YT-Windows
+          path: "Hacktoon Download Video YT.exe"
 
       - name: Upload macOS DMG
         uses: actions/upload-artifact@v2
         with:
-          name: MonApp-macOS
-          path: MonApp.dmg
+          name: Hacktoon-Download-Video-YT-macOS
+          path: "Hacktoon Download Video YT"
 
       - name: Upload Linux DEB
         uses: actions/upload-artifact@v2
         with:
-          name: MonApp-Linux
+          name: Hacktoon-Download-Video-YT-Linux
           path: *.deb
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v2
         with:
-          name: MonApp-Android
-          path: MonApp.apk
+          name: Hacktoon-Download-Video-YT-Android
+          path: Hacktoon_Download_Video_YT.apk
