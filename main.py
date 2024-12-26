@@ -191,3 +191,6 @@ nest_asyncio.apply()
 # Lancer l'application Flet
 if __name__ == "__main__":
     ft.app(target=creer_interface)
+
+
+
